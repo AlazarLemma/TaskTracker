@@ -1,4 +1,4 @@
-   const Button = ({color,text,Click}) => {
+   const Button = ({color,text,Click,dClick}) => {
 
 
     return (
@@ -7,7 +7,7 @@
         
             style={{backgroundColor:color}}
             onClick={Click}
-            className='btn'>Add</button>
+            className='btn'>{text}</button>
 
     )
 }

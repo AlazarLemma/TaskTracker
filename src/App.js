@@ -1,11 +1,13 @@
 import Header from "./components/Header"
 import Tasks from "./components/Tasks"
 import {useState} from "react"
-
+import { identity } from "rxjs"
+import AddTask from "./components/AddTask"
 
 
 
 function App() {
+  const [showAddTask, setShowAddTask]=useState(true);
   const [tasks, setTasks]=useState([
     {
     
@@ -40,17 +42,30 @@ function App() {
       },
   ])
 
+  const addTask=(task)=>{
+    const id=Math.floor(Math.random()*1000)+1
+      const s= {id, ...task}
+      setTasks([...tasks, s])
+
+  }
+
    const ontask =(id)=>{
       setTasks(tasks.filter((e)=>e.id!==id))
    }
-  
 
+   const btndoubleClick=(id)=>{
+    setTasks(tasks.map((e)=>e.id===id ?{
+      ...e, completed : !e.completed
+    }:tasks ))
+}
   return (
     <div className="container">
-     <Header></Header>
-
+     <Header onAdd={()=>setShowAddTask(!showAddTask)}
+        showAdd={showAddTask}
+     ></Header>
+     { showAddTask && <AddTask addtask={addTask}></AddTask>}
      {tasks.length>0 ?(
-     <Tasks sine={tasks} Deleteme={ontask}></Tasks>):("NO LIST TO SHOW BUDDY")}
+     <Tasks sine={tasks} Deleteme={ontask} doubleClick={btndoubleClick}   ></Tasks>):("NO LIST TO SHOW BUDDY")}
     </div>
 
   );

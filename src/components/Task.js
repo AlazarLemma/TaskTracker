@@ -7,11 +7,36 @@ import {FaTimes} from 'react-icons/fa'
     return (
         
      
-         <div className="task" id={props}>
-             <h3 id={props.id}>
-              {props.id} <FaTimes onClick={()=>props.deleteme(props.id)}
-              style ={{color:'red', cursor : 'pointer'}}/></h3>
-              <p id={props.id}>{props.title} </p>
+         <div 
+         
+         //className={`task ${props.completed? 'reminder' :''}`} 
+
+
+
+    className={`task ${props.completed? 'reminder':''}`}
+
+         
+         id={props.id}
+           onDoubleClick={()=>props.dclick(props.id)}
+           >
+               <h3>
+
+{props.title}{" "}
+
+<FaTimes
+
+  style={{ color: "red", cursor: "pointer" }}
+
+  onClick={() => {
+
+    props.deleteme(props.id);
+
+  }}
+
+></FaTimes>{" "}
+
+</h3>
+              <p>{props.id}</p>
             
     </div>
        
